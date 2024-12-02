@@ -47,11 +47,16 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		showError(w, "404 - Page Not Found", http.StatusNotFound)
+		return
+	}
 
-	tmpl, err := template.ParseFiles("template.html")
+	tmpl, err := template.ParseFiles("template/Home.html")
 	if err != nil {
-		http.Error(w, "500 Internal sever error - error parsing html template", 500)
+		showError(w, "500 Internal sever error - error parsing html template", 500)
 		fmt.Println(err)
+		return //
 	}
 	data1 := artists
 	//fmt.Println(data1)
@@ -60,10 +65,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func handlerCard(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/Artists" {
+		showError(w, "404 - Page Not Found", http.StatusNotFound)
+		return
+	}
 
-	tmpl, err := template.ParseFiles("templateCard.html")
+	tmpl, err := template.ParseFiles("template/Artist.html")
 	if err != nil {
-		http.Error(w, "500 Internal sever error - error parsing html template", 500)
+		showError(w, "500 Internal sever error - error parsing html template", 500)
 		fmt.Println(err)
 	}
 
@@ -85,9 +94,9 @@ func getArtists() {
 	artistsURL := "https://groupietrackers.herokuapp.com/api/artists"
 
 	// http get request
-	getResp, errG := http.Get(artistsURL)
-	if errG != nil {
-		log.Fatal("Error: http get request ", errG)
+	getResp, err := http.Get(artistsURL)
+	if err != nil {
+		log.Fatal("Error: http get request", err)
 	}
 	defer getResp.Body.Close()
 
@@ -174,7 +183,7 @@ func interfaceToStringSlice(input any) []string {
 		fmt.Println("input is not a []interface{}")
 		return nil
 	}
-
+	
 	// Create a new []string slice to hold the converted values
 	stringSlice := make([]string, len(interfaceSlice))
 
@@ -201,7 +210,7 @@ func showError(w http.ResponseWriter, message string, status int) {
 	w.WriteHeader(status)
 
 	// Parse the error template
-	tmpl, err := template.ParseFiles("ErrPage.html")
+	tmpl, err := template.ParseFiles("template/ErrPage.html")
 	if err != nil {
 		// If template parsing fails, fallback to a generic error response
 		http.Error(w, "Could not load error page", http.StatusInternalServerError)

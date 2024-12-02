@@ -8,50 +8,135 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"></script>
     <title>Groupie-Tracker</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: #333;
+        }
+
+        /* Header section */
+        .heading {  
+            padding: 20px;
+            background-color: #1c1c1c;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+       
+        .logo {
+            color: goldenrod;
+            font-size: 55px;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 0 #ccc,         
+                         3px 3px 0 #444, 
+                         4px 4px 0 #444, 
+                         5px 5px 0 #444, 
+                         6px 6px 0 #444, 
+                         5px 5px 15px #999;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+         /* Container for cards */
         .container {
-            margin-top: 25px;
+            margin-top: 40px;
+            padding-bottom: 25px;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 20px;
             justify-content: center;
-            /* Centers cards horizontally */
         }
-
+        
+        /* Card styling */
         .card {
-            height: 400px;
+            height: 350px;
             width: 250px;
-            border: 2px solid #000;
-            border-radius: 10px;
+            border-radius: 15px;
+            background-color: #333;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card:hover {
+            transform: translateY(-10px);
         }
 
-        .image {
-            border-radius: 10px;
-            margin: 4px;
-            margin-top: 6px;
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 2px solid #333;
         }
 
-        .a {
-            border: 2px solid black;
+        .card h3 {
+            font-size: 22px;
+            color: #fff;
+            text-align: center;
+            padding: 25px;
         }
 
-        /* Double range input styling */
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
+    
+        h3 {
+            font-size:35px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .filter {
+            display: flex;
+            flex-direction: column;
+            background-color: goldenrod;
+            gap: 1rem;
+            padding: 1rem;
+            width: 300px;
+            margin: 1rem auto;
+            height: auto;
+        }
+
+      
+        /* Range slider styling */
         .slider-styled {
-            margin-left: 20px;
-            height: 10px;
-            width: 20%;
+            margin: 8px 0;
+            height: 15px;
+            margin-bottom: 20px;
         }
 
         .slider-styled .noUi-connect {
-            background: #8baaff;
+            background: #333;
+        }
+        /* .push {
+            padding-top: 30px;
+            
+        } */
+        .slider-styled .noUi-handle {
+            height: 16px;
+            width: 16px;
+            top: -1px;
+            right: -6px;
+            /* half the width */
+            border-radius: 50%;
+            background-color: #1c1c1c;
         }
 
-        .slider-styled .noUi-handle {
-            height: 14px;
-            width: 14px;
-            top: -3px;
-            right: -9px;
-            /* half the width */
-            border-radius: 9px;
+        .slider-styled .noUi-connect {
+            background: #333;
         }
 
         /* Hide middle line */
@@ -59,45 +144,141 @@
         .noUi-handle:after {
             display: none;
         }
+
+        button {
+            padding: 0.6rem 1rem;
+            font-size: 15px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .button1:hover {
+            background: goldenrod;
+
+        }
+        .button2:hover {
+            color: #333;
+            font-size: 15px;
+            background-color: white;
+        }
+
+        /* Search input field */
+        input[type="text"] {
+            padding: 10px;
+            margin: 15px;
+            width: 220px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #ffcc00;
+        }
+        select, input[type="checkbox"] {
+            margin: 5px 0;
+        }
+
+        #filterDiv {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0; /* Initially hidden */
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        #filterDiv.active {
+            max-height: 500px; /* Adjust based on your content */
+            opacity: 1;
+        }
+        /* Style for the members count filter checkboxes */
+        #membersCountFilter label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            
+        }
+        #membersCountFilter input[type="checkbox"] {
+            margin-left: 8px;  /* Space between the checkbox and the label */
+            margin-right: 3px;  /* Space between the checkbox and the label */
+            margin-top: 10px;  /* Space between the checkbox and the label */
+            margin-bottom: 10px;
+        }
+
+        #suggestions {
+            margin: 0.5rem 0;
+        }
+        #locationsFilter {
+            margin: 10px 0;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid black;
+            font-size: 1rem;
+            
+        }
+
+        #search {
+            margin: 10px 0;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid black;
+            font-size: 1rem;
+        }
+    
     </style>
 </head>
 
 <body>
     <center>
         <div class="heading">
-            <h1>Groupie-Tracker</h1>
-            <hr>
+            <h1 class="logo">𝔊𝔯𝔬𝔲𝔭𝔦𝔢-𝔗𝔯𝔞𝔠𝔨𝔢𝔯</h1>
+            <input type="text" id="search" placeholder="Type to search..." />
+            <button class="button1" id="toggleFilterButton">Show Filters</button>
         </div>
-        <input type="text" id="search" placeholder="Type to search..." />
-        <div id="suggestions"></div>
-        <hr />
-        <div>
-
-            creation date : <!-- range -->
-            <span id="minValueCreation"></span> - <span id="maxValueCreation"></span>
-            <div class="slider-styled" id="creationDateRange"></div>
-
-            first album : <!-- range -->
-            <span id="minValueAlbum"></span> - <span id="maxValueAlbum"></span>
-            <div class="slider-styled" id="firstAlbumRange"></div>
-
-            number of members : <!-- checkbox -->
-            <div id="membersCountFilter"></div>
-            locations : <!-- Select -->
-            <br />
-            <select id="locationsFilter"><option value="All" selected>All</option></select>
-            <br />
-            <button onclick="reset()">Reset</button>
+        <div><!-- <div class="filter"> -->
+            <div id="suggestions"></div>
+        </div>
+      
+        <div style="background-color:goldenrod ;" class="push">
+            <div class="filter" id="filterDiv" style="display: none;"> <!--style="display: none;" -->
+                <h3>Filters</h3>
+                <div>
+                    <strong>Creation Date: </strong>
+                    <span id="minValueCreation"></span> - <span id="maxValueCreation"></span>
+                    <div class="slider-styled" id="creationDateRange"></div>
+                </div>
+                <div>
+                    <strong>First Album: </strong>
+                    <span id="minValueAlbum"></span> - <span id="maxValueAlbum"></span>
+                    <div class="slider-styled" id="firstAlbumRange"></div>
+                </div>
+                <div>
+                    <strong>Number of Members</strong> <br>
+                    <div id="membersCountFilter"></div>
+                </div>
+                
+                <div>
+                    <strong>Locations</strong> <br>
+                    <select id="locationsFilter">
+                        <option value="All" selected>All</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="button2" onclick="reset()">Reset</button>
+                </div>
+            </div>
 
         </div>
-        <hr />
+       
+        
         <div class="container">
             {{range .}}
             <div class="card">
                 <a href="/Artists?id={{.ID}}">
-                    <img src="{{.Image}}" alt="{{.Name}}" class="image" /> <!--if [src] doesn't exists [alt] work-->
+                    <img src="{{.Image}}" alt="{{.Name}}" class="image" />
                     <h3>{{.Name}}</h3>
-                    <p>creationDate: {{.CreationDate}}</p>
                 </a>
             </div>
             {{end}}
@@ -106,7 +287,7 @@
 
     <script type="application/json" id="artistData">
     {{.}}
-</script>
+    </script>
 
     <script>
         // Init main variables for filters
@@ -189,12 +370,11 @@
 
                 //----------- show based on filters --------------
                 // locations
-                if (locationsFilterValue != "All") {
-                    const hasLocation = artist.Locations.some(location => location.toLowerCase().includes(locationsFilterValue))
-                    if (!hasLocation) {
-                        cards[index].style.display = 'none'
-                    }
-                }
+                if (locationsFilterValue && locationsFilterValue !== "All") {
+                const hasLocation = artist.Locations.some(location => location.toLowerCase().includes(locationsFilterValue));
+                if (!hasLocation) {
+                    cards[index].style.display = 'none';
+                }}
 
                 // members count
                 var membersLen = artist.members.length
@@ -245,6 +425,22 @@
         // ------------ Set innerHtml Filters ------------
         function init() {
             // ------------ Set innerHtml Filters ------------
+            document.getElementById('toggleFilterButton').addEventListener('click', () => {
+            const filterDiv = document.getElementById('filterDiv');
+            const button = document.getElementById('toggleFilterButton');
+
+            if (filterDiv.style.display === 'none' || filterDiv.style.display === '') {
+                // Show the filter div
+                filterDiv.style.display = 'block';
+                filterDiv.classList.add('active');
+                button.textContent = 'Hide Filters';
+            } else {
+                // Hide the filter div
+                filterDiv.style.display = 'none';
+                filterDiv.classList.remove('active');
+                button.textContent = 'Show Filters';
+            }
+            })
             // Locations filter
             var searchArray = [...searchExemples]
             var locations = searchArray.filter(exemple => exemple.includes("Locations"))

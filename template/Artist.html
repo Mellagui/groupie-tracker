@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupie-Tracker-Artists</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"></script>
+    <style>
+        /* General body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+        }
+
+        /* Header section */
+        .heading {  
+            padding: 20px;
+            background-color: #1c1c1c;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        /* Logo styling */
+        .logo {
+            color: goldenrod;
+            font-size: 55px;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 0 #ccc,         
+                         3px 3px 0 #444, 
+                         4px 4px 0 #444, 
+                         5px 5px 0 #444, 
+                         6px 6px 0 #444, 
+                         5px 5px 15px #999;
+        }
+
+        /* Card container styling */
+        .card {
+            margin-top: 30px;
+            margin-bottom: 35px;
+            padding: 25px;
+            height: auto;
+            width: 96%;
+            border-radius: 10px;
+            background-color: #333;
+        }
+
+        .a {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center; /* Centers cards horizontally */
+        }
+
+        .b {
+            flex: 1; /* Makes each box take an equal share of space */
+            padding: 20px;
+            text-align: left;
+            color: #fff;
+        }
+
+        h2 {
+            margin-top: 15px;
+            font-size: 30px;
+            letter-spacing: 1px;
+        }
+
+        /* Image styling */
+        .image {
+            border-radius: 10px; 
+            margin: 4px;
+            margin-top: 50px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Info styling */
+        .info {
+            margin-bottom: 15px;
+        }
+
+        .info .label {
+            font-weight: bold;
+            color: goldenrod;
+        }
+
+        .info .data {
+            color: #ddd;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            
+
+            .logo {
+                font-size: 40px;
+            }
+
+            .image {
+                max-width: 220px;
+            }
+
+            .b {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div class="heading">
+            <h1 class="logo">𝔊𝔯𝔬𝔲𝔭𝔦𝔢-𝔗𝔯𝔞𝔠𝔨𝔢𝔯</h1>
+        </div>
+
+        <div class="card">
+            <div class="a">
+                <div class="b" style="text-align: center;">
+                    <h2>{{.Name}}</h2>
+                    <img src="{{.Image}}" alt="{{.Name}}" class="image"/>
+                </div>
+                <div class="b">
+                    <div class="a">
+                        <div class="b">
+                            <div class="info">
+                                <span class="label">Creation Date: </span>
+                                <span class="data">{{.CreationDate}}</span>
+                            </div>
+                            <div class="info">
+                                <span class="label">First Album: </span>
+                                <span class="data">{{.FirstAlbum}}</span>
+                            </div>
+                            <div class="info">
+                                <span class="label">Members:<br></span>
+                                <span class="data">{{range .Members}}{{.}}<br>{{end}}<br></span>
+                            </div>
+                            <div class="info">
+                                <span class="label">Location:<br></span>
+                                <span class="data">{{range .Locations}}{{.}}<br>{{end}}<br></span>
+                            </div>
+                        </div>
+                        <div class="b">
+                            <div class="info">
+                                <span class="label">Dates:<br></span>
+                                <span class="data">{{range .Dates}}{{.}}<br>{{end}}<br></span>
+                            </div>
+                            <div class="info">
+                                <span class="label">Relations:<br></span>
+                                <span class="data">{{range $key, $value := .Relations}}
+                                    {{$key}}: {{$value}}<br>
+                                {{end}}<br></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+</body>
+</html>
