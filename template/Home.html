@@ -39,6 +39,7 @@
                          5px 5px 0 #444, 
                          6px 6px 0 #444, 
                          5px 5px 15px #999;
+                         padding-bottom: 20px;
         }
 
         h1 {
@@ -60,27 +61,22 @@
         .card {
             height: 350px;
             width: 250px;
+            margin-top: 10px;
             border-radius: 15px;
             background-color: #333;
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
             transition: transform 0.3s ease;
         }
-        
         .card:hover {
             transform: scale(1.05);
         }
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
         .card img {
             width: 100%;
             height: 250px;
             object-fit: cover;
             border-bottom: 2px solid #333;
         }
-
         .card h3 {
             font-size: 22px;
             color: #fff;
@@ -99,32 +95,22 @@
             letter-spacing: 1px;
         }
 
-        .filter {
-            display: flex;
-            flex-direction: column;
+        .push {
             background-color: goldenrod;
-            gap: 1rem;
-            padding: 1rem;
-            width: 300px;
-            margin: 1rem auto;
-            height: auto;
         }
-
-      
+        .push.active {
+            background-color: goldenrod;
+        }
+        
         /* Range slider styling */
         .slider-styled {
             margin: 8px 0;
             height: 15px;
             margin-bottom: 20px;
         }
-
         .slider-styled .noUi-connect {
             background: #333;
         }
-        /* .push {
-            padding-top: 30px;
-            
-        } */
         .slider-styled .noUi-handle {
             height: 16px;
             width: 16px;
@@ -134,17 +120,15 @@
             border-radius: 50%;
             background-color: #1c1c1c;
         }
-
         .slider-styled .noUi-connect {
             background: #333;
         }
-
-        /* Hide middle line */
         .noUi-handle:before,
         .noUi-handle:after {
+            /* Hide middle line */
             display: none;
         }
-
+        
         button {
             padding: 0.6rem 1rem;
             font-size: 15px;
@@ -164,7 +148,7 @@
             font-size: 15px;
             background-color: white;
         }
-
+        
         /* Search input field */
         input[type="text"] {
             padding: 10px;
@@ -176,23 +160,33 @@
             outline: none;
         }
         input[type="text"]:focus {
-            border-color: #ffcc00;
+            border-color: goldenrod;
         }
         select, input[type="checkbox"] {
             margin: 5px 0;
         }
-
+        
+        .filter {
+            display: flex;
+            flex-direction: column;
+            background-color: goldenrod;
+            gap: 1rem;
+            padding: 1rem;
+            width: 300px;
+            margin: 1rem auto;
+            height: auto;
+        }
         #filterDiv {
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
             max-height: 0; /* Initially hidden */
             overflow: hidden;
             opacity: 0;
+            transition: max-height 6s ease-in-out, opacity 6s linear;
         }
-
         #filterDiv.active {
             max-height: 500px; /* Adjust based on your content */
             opacity: 1;
         }
+
         /* Style for the members count filter checkboxes */
         #membersCountFilter label {
             display: flex;
@@ -226,6 +220,50 @@
             border: 1px solid black;
             font-size: 1rem;
         }
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease;
+
+}
+
+/* Push Section */
+.push {
+    margin-top: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: 100%;
+    background-color: goldenrod;
+    z-index: 5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    transition: transform 0.5s ease-in-out;
+    opacity: 0; /* Hidden by default */
+    visibility: hidden;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+
+}
+
+/* Active Push Section */
+.push.active {
+    transform: translate(-50%, -50%); /* Slide into view */
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Bottom Section Animation (Container Moves Down) */
+.container.active {
+    transform: translateY(400px); /* Adjust height as needed */
+}
+
     
     </style>
 </head>
@@ -240,8 +278,7 @@
         <div><!-- <div class="filter"> -->
             <div id="suggestions"></div>
         </div>
-      
-        <div style="background-color:goldenrod ;" class="push">
+        <div class="push">
             <div class="filter" id="filterDiv" style="display: none;"> <!--style="display: none;" -->
                 <h3>Filters</h3>
                 <div>
@@ -290,6 +327,15 @@
     </script>
 
     <script>
+        const toggleButton = document.getElementById('toggleFilterButton');
+        const pushSection = document.querySelector('.push');
+        const containerSection = document.querySelector('.container');
+
+        toggleButton.addEventListener('click', () => {
+            const isActive = pushSection.classList.toggle('active'); // Toggle the push section
+            containerSection.classList.toggle('active', isActive); // Adjust bottom section if active
+        });
+
         // Init main variables for filters
         var searchValue = ""
         var locationsFilterValue = ""

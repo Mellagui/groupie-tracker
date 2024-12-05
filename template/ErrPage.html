@@ -5,33 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
+        /* General body styling */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #111111;
-
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
         }
 
-        div {
-            background-color: #555;
+        /* Header section */
+        .heading {  
+            padding: 20px;
+            background-color: #1c1c1c;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 1rem;
         }
-
-        button:hover {
-            background-color: #0056b3;
+        
+        /* Logo styling */
+        .logo {
+            color: goldenrod;
+            font-size: 55px;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 0 #ccc,         
+                         3px 3px 0 #444, 
+                         4px 4px 0 #444, 
+                         5px 5px 0 #444, 
+                         6px 6px 0 #444, 
+                         5px 5px 15px #999;
         }
+        /* Error page */
 
+p {
+  margin-bottom : 60px;
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#main {
+  display: table;
+  width: 100%;
+  text-align: center;
+}
+
+.animationTyping h1 {
+  font-size: 50px;
+  display: inline-block;
+  padding-right: 12px;
+  animation: type .5s alternate infinite;
+}
+
+h1 {
+  width: auto;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 50px;
+  /* display: inline-bock; */
+  padding-right: 12px;
+  animation: type .5s alternate infinite;
+  margin-left: 0px;
+  color: #333;
+}
+p {
+    color: white;
+}
+
+.animated-head {
+  display: flex;
+  justify-content: center;
+  /* Centers horizontally */
+  align-items: center;
+  /* Centers vertically */
+}
+
+
+button {
+            padding: 0.6rem 1rem;
+            font-size: 15px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+              align-items: center;
+
+        }
+        .button1:hover {
+            background: goldenrod;
+
+        }
     </style>
-
 
 </head>
 <body>
-    <center>
-        <div>
-            <p>{{.Status}} Error</p>
+    <div class="heading">
+        <h1 class="logo">𝔊𝔯𝔬𝔲𝔭𝔦𝔢-𝔗𝔯𝔞𝔠𝔨𝔢𝔯</h1>
+    </div>
+    <div id="main">
+        <div class="animationTyping">
+            <img src="folder.png" /><br/>
+            <h1>Error {{.Status}}</h1>
             <p>{{.Message}} </p>
-            <button type="button"><a href="/">back to homepage</a></button>
+            <a href="/"><button type="button" class="button1">&#8634; back to homepage</button></a>
         </div>
-    </center>
+    </div>
 
 
     

@@ -38,11 +38,11 @@
                          5px 5px 0 #444, 
                          6px 6px 0 #444, 
                          5px 5px 15px #999;
+            padding-bottom: 20px;
         }
 
         /* Card container styling */
         .card {
-            margin-top: 30px;
             margin-bottom: 35px;
             padding: 25px;
             height: auto;
@@ -95,9 +95,8 @@
         }
 
         /* Responsive Design */
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 620px) {
             
-
             .logo {
                 font-size: 40px;
             }
@@ -110,12 +109,29 @@
                 text-align: left;
             }
         }
+        button {
+            padding: 0.6rem 1rem;
+            font-size: 15px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-left: 90%;
+        }
+        .button1:hover {
+            background: goldenrod;
+
+        }
     </style>
 </head>
 <body>
     <center>
         <div class="heading">
             <h1 class="logo">𝔊𝔯𝔬𝔲𝔭𝔦𝔢-𝔗𝔯𝔞𝔠𝔨𝔢𝔯</h1>
+            <button class="button1" onclick="window.location.href='/'">Go back</button>
         </div>
 
         <div class="card">
@@ -138,21 +154,21 @@
                             <div class="info">
                                 <span class="label">Members:<br></span>
                                 <span class="data">{{range .Members}}{{.}}<br>{{end}}<br></span>
-                            </div>
-                            <div class="info">
-                                <span class="label">Location:<br></span>
-                                <span class="data">{{range .Locations}}{{.}}<br>{{end}}<br></span>
+                                <div class="info">
+                                    <span class="label">Dates:<br></span>
+                                    <span class="data">{{range .Dates}}{{.}}<br>{{end}}<br></span>
+                                </div>
                             </div>
                         </div>
                         <div class="b">
                             <div class="info">
-                                <span class="label">Dates:<br></span>
-                                <span class="data">{{range .Dates}}{{.}}<br>{{end}}<br></span>
+                                <span class="label">Location:<br></span>
+                                <span class="data">{{range .Locations}}{{.}}<br>{{end}}<br></span>
                             </div>
                             <div class="info">
                                 <span class="label">Relations:<br></span>
                                 <span class="data">{{range $key, $value := .Relations}}
-                                    {{$key}}: {{$value}}<br>
+                                    <b>{{$key}}:</b><br> {{range $value}}{{.}}<br>{{end}}<br>
                                 {{end}}<br></span>
                             </div>
                         </div>
