@@ -1,12 +1,13 @@
 package main
 
 import (
-	"encoding/json" //////////
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type Artist struct {
@@ -35,6 +36,7 @@ func init() {
 }
 
 func main() {
+	http.Handle("/static/", http.StripPrefix("/static", http.HandlerFunc(handleStatic)))
 
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/Artists", handlerCard)
@@ -44,6 +46,15 @@ func main() {
 	if err != nil {
 		log.Fatal("Error:", err)
 	}
+}
+
+func handleStatic(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/" || strings.Contains("/static/", r.URL.Path) {
+		showError(w, "404 - Page Not Found", 404)
+		return
+	}
+	fs := http.FileServer(http.Dir("static"))
+	fs.ServeHTTP(w, r)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -56,7 +67,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		showError(w, "500 Internal sever error - error parsing html template", 500)
 		fmt.Println(err)
-		return //
+		return
 	}
 	data1 := artists
 	//fmt.Println(data1)
@@ -74,6 +85,7 @@ func handlerCard(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		showError(w, "500 Internal sever error - error parsing html template", 500)
 		fmt.Println(err)
+		return
 	}
 
 	idString := r.FormValue("id")
@@ -183,7 +195,7 @@ func interfaceToStringSlice(input any) []string {
 		fmt.Println("input is not a []interface{}")
 		return nil
 	}
-	
+
 	// Create a new []string slice to hold the converted values
 	stringSlice := make([]string, len(interfaceSlice))
 
