@@ -47,12 +47,12 @@ h1 {
 
 
 
-.push {
+/* .push {
     background-color: goldenrod;
 }
 .push.active {
     background-color: goldenrod;
-}
+} */
 
 /* Range slider styling */
 .slider-styled {
@@ -119,24 +119,17 @@ select, input[type="checkbox"] {
 }
 
 .filter {
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     background-color: goldenrod;
-    gap: 1rem;
-    padding: 1rem;
-    width: 300px;
-    margin: 1rem auto;
+    /* gap: 1rem; */
+    padding: 1.2rem;
+    width: 320px;
+    /* margin: 1rem auto; */
     height: auto;
 }
 #filterDiv {
-    max-height: 0; /* Initially hidden */
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 6s ease-in-out, opacity 6s linear;
-}
-#filterDiv.active {
-    max-height: 500px; /* Adjust based on your content */
-    opacity: 1;
+    border-radius: 8px;
 }
 
 /* Style for the members count filter checkboxes */
@@ -184,7 +177,7 @@ select, input[type="checkbox"] {
 }
 
 /* Push Section */
-.push {
+/* .push {
     margin-top: 40px;
     position: absolute;
     top: 50%;
@@ -196,24 +189,50 @@ select, input[type="checkbox"] {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     transition: transform 0.5s ease-in-out;
-    opacity: 0; /* Hidden by default */
+    opacity: 0;
     visibility: hidden;
     transition: transform 0.5s ease, opacity 0.5s ease;
     
-}
+} */
 
 /* Active Push Section */
-.push.active {
-    transform: translate(-50%, -50%); /* Slide into view */
+/* .push.active {
+    transform: translate(-50%, -50%);
     opacity: 1;
     visibility: visible;
-}
+} */
 
 /* Bottom Section Animation (Container Moves Down) */
 .container.active {
-    transform: translateY(400px); /* Adjust height as needed */
+    transform: translateY(400px);
 }
 
 a {
     color: #000000;
+}
+
+#overlayer {
+    display: none;               /* Hidden by default */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6); /* Semi-transparent */
+    z-index: 1000;
+}
+
+/* Popup box */
+.popup {
+    display: none;               /* Hidden by default */
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    /* background: white; */
+    /* padding: 20px; */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    z-index: 1001;
+    /* width: 350px; */
+    /* height: ; */
+    text-align: center;
 }

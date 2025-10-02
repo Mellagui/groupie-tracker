@@ -16,13 +16,45 @@
         <div class="heading">
             <h1 class="logo">𝔊𝔯𝔬𝔲𝔭𝔦𝔢-𝔗𝔯𝔞𝔠𝔨𝔢𝔯</h1>
             <input type="text" id="search" placeholder="Type to search..." />
-            <button class="button1" id="toggleFilterButton">Show Filters</button>
+            <button class="button1" id="filter_btn">Show Filters</button>
         </div>
         <div><!-- <div class="filter"> -->
             <div id="suggestions"></div>
         </div>
-        <div class="push">
-            <div class="filter" id="filterDiv" style="display: none;"> <!--style="display: none;" -->
+        <div id="overlayer"></div>
+
+        <div id="popup" class="popup">
+             <div class="filter" id="filterDiv">
+                <h3>Filters</h3>
+                <div>
+                    <strong>Creation Date: </strong>
+                    <span id="minValueCreation"></span> - <span id="maxValueCreation"></span>
+                    <div class="slider-styled" id="creationDateRange"></div>
+                </div>
+                <div>
+                    <strong>First Album: </strong>
+                    <span id="minValueAlbum"></span> - <span id="maxValueAlbum"></span>
+                    <div class="slider-styled" id="firstAlbumRange"></div>
+                </div>
+                <div>
+                    <strong>Number of Members</strong> <br>
+                    <div id="membersCountFilter"></div>
+                </div>
+                
+                <div>
+                    <strong>Locations</strong> <br>
+                    <select id="locationsFilter">
+                        <option value="All" selected>All</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="button2" onclick="reset()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="push">
+            <div class="filter" id="filterDiv" style="display: none;">
                 <h3>Filters</h3>
                 <div>
                     <strong>Creation Date: </strong>
@@ -50,7 +82,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> -->
        
         
         <div class="container">
@@ -66,7 +98,7 @@
     </center>
 
     <script type="application/json" id="artistData">{{.}}</script>
-    <script src="../static/js/filter.js"></script>
+    <script src="../static/js/script.js"></script>
 </body>
 
 </html>

@@ -1,23 +1,9 @@
-const toggleButton = document.getElementById('toggleFilterButton');
-const pushSection = document.querySelector('.push');
-const containerSection = document.querySelector('.container');
-
-toggleButton.addEventListener('click', () => {
-    const isActive = pushSection.classList.toggle('active'); // Toggle the push section
-    containerSection.classList.toggle('active', isActive); // Adjust bottom section if active
-});
-
-// Init main variables for filters
 var searchValue = ""
 var locationsFilterValue = ""
 var selectedMembers = [];
 var creationDateRangeValue = [0, 2024]
 var firstAlbumRangeValue = [0, 2024]
 
-// Reset Filters
-function reset() {
-    location.reload()
-}
 // Read and parse json (takes a string and returns the parsed object)
 const artists = JSON.parse(document.getElementById('artistData').textContent)
 
@@ -137,25 +123,20 @@ while (stack.length > 0) {
 }
 
 // -------------------------------- Filters Part -------------------------------
-// ------------ Set innerHtml Filters ------------
 function init() {
-    // ------------ Set innerHtml Filters ------------
-    document.getElementById('toggleFilterButton').addEventListener('click', () => {
-    const filterDiv = document.getElementById('filterDiv');
-    const button = document.getElementById('toggleFilterButton');
-
-    if (filterDiv.style.display === 'none' || filterDiv.style.display === '') {
-        // Show the filter div
-        filterDiv.style.display = 'block';
-        filterDiv.classList.add('active');
-        button.textContent = 'Hide Filters';
-    } else {
-        // Hide the filter div
-        filterDiv.style.display = 'none';
-        filterDiv.classList.remove('active');
-        button.textContent = 'Show Filters';
-    }
+    const filter_btn = document.getElementById('filter_btn');
+    const popup = document.getElementById("popup");
+    const overlayer = document.getElementById("overlayer");
+    
+    filter_btn.addEventListener('click', () => {
+        popup.style.display = "block";
+        overlayer.style.display = "block";
     })
+    overlayer.addEventListener('click', () => {
+        popup.style.display = "none";
+        overlayer.style.display = "none";
+    })
+
     // Locations filter
     var searchArray = [...searchExemples]
     var locations = searchArray.filter(exemple => exemple.includes("Locations"))
@@ -217,7 +198,7 @@ function init() {
         step: 1
     });
 
-    // ------------ Hamdlers ------------
+    // ------------ Handlers ------------
     // Locations Handler
     locationsFilter.addEventListener('click', event => {
         locationsFilterValue = event.target.value
@@ -265,4 +246,6 @@ function init() {
         showResults()
     });
 }
-init()
+
+const reset = () => location.reload();
+init();
