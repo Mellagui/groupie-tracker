@@ -143,39 +143,33 @@ function init() {
     const locationsFilter = document.getElementById('locationsFilter')
     locations.forEach(item => locationsFilter.innerHTML += "<option class='locationsOption'>" + item.split(" - ")[0] + "</option>")
 
-    // Count Members-count - creations-Dates - first-albums filters min <-> max
-    var maxMembers = 0
-    var creationDatesInterval = { min: 2024, max: 0 }
-    var firstAlbumsInterval = { min: 2024, max: 0 }
-    console.log(artists)
     artists.forEach(artist => {
         if (maxMembers < artist.members.length) {
-            maxMembers = artist.members.length
+            maxMembers = artist.members.length;
         }
         if (creationDatesInterval.min > artist.creationDate) {
-            creationDatesInterval.min = artist.creationDate
-        } else if (creationDatesInterval.max < artist.creationDate) {
-            creationDatesInterval.max = artist.creationDate
+            creationDatesInterval.min = artist.creationDate;
         }
-        const firstAlbumYear = parseInt(artist.firstAlbum.split('-')[2])
+        if (creationDatesInterval.max < artist.creationDate) {
+            creationDatesInterval.max = artist.creationDate;
+        }
+        const firstAlbumYear = parseInt(artist.firstAlbum.split('-')[2]);
         if (firstAlbumsInterval.min > firstAlbumYear) {
-            firstAlbumsInterval.min = firstAlbumYear
-        } else if (firstAlbumsInterval.max < firstAlbumYear) {
-            firstAlbumsInterval.max = firstAlbumYear
+            firstAlbumsInterval.min = firstAlbumYear;
         }
-    })
+        if (firstAlbumsInterval.max < firstAlbumYear) {
+            firstAlbumsInterval.max = firstAlbumYear;
+        }
+    });
 
     // Members-count
-    const membersCountFilter = document.getElementById('membersCountFilter')
-    i = 1
-    while (i <= maxMembers) {
-        membersCountFilter.innerHTML += "<input type='checkbox' id='" + i + "' checked/>" + i
-        selectedMembers[i - 1] = true
-        i++
+    const membersCountFilter = document.getElementById('membersCountFilter');
+    for (let i = 1; i <= maxMembers; i++) {
+        membersCountFilter.innerHTML += `<input type='checkbox' id='${i}' checked/>${i}`;
+        selectedMembers[i - 1] = true;
     }
-    console.log(selectedMembers)
 
-    // Creation Date
+    // Creation Date slider
     const creationDateRange = document.getElementById('creationDateRange');
     noUiSlider.create(creationDateRange, {
         start: [creationDatesInterval.min, creationDatesInterval.max],
@@ -186,7 +180,8 @@ function init() {
         },
         step: 1
     });
-    // Fist Album
+
+    // First Album slider
     const firstAlbumRange = document.getElementById('firstAlbumRange');
     noUiSlider.create(firstAlbumRange, {
         start: [firstAlbumsInterval.min, firstAlbumsInterval.max],
@@ -205,45 +200,29 @@ function init() {
         showResults()
     })
 
-    // Members-count Handler
-    const checkBoxes = [...membersCountFilter.children]
-    checkBoxes.forEach((item, index) => {
-        item.addEventListener('change', event => {
-            if (event.target.checked) {
-                selectedMembers[index] = true
-            } else {
-                console.log(false)
-                selectedMembers[index] = false
-            }
-            console.log(selectedMembers)
-            showResults()
-        })
-    })
+    if (membersCountFilter) {
+        [...membersCountFilter.children].forEach((item, index) => {
+            item.addEventListener('change', event => {
+                selectedMembers[index] = event.target.checked;
+                showResults();
+            });
+        });
+    }
 
-    // Creation-date Handler
     creationDateRange.noUiSlider.on('update', function (values) {
-        // Show values
         minValueCreation.textContent = Math.round(values[0]);
         maxValueCreation.textContent = Math.round(values[1]);
-
-        // Save values
         creationDateRangeValue.min = Math.round(values[0]);
         creationDateRangeValue.max = Math.round(values[1]);
-
-        showResults()
+        showResults();
     });
 
-    // firstAlbum Handler
     firstAlbumRange.noUiSlider.on('update', function (values) {
-        // Show values
         minValueAlbum.textContent = Math.round(values[0]);
         maxValueAlbum.textContent = Math.round(values[1]);
-
-        // Save values
         firstAlbumRangeValue.min = Math.round(values[0]);
         firstAlbumRangeValue.max = Math.round(values[1]);
-
-        showResults()
+        showResults();
     });
 }
 
