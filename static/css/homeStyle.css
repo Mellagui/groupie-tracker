@@ -119,16 +119,10 @@ select, input[type="checkbox"] {
 }
 
 .filter {
-    /* display: flex; */
-    /* flex-direction: column; */
     background-color: goldenrod;
-    /* gap: 1rem; */
     padding: 1.2rem;
     width: 320px;
-    /* margin: 1rem auto; */
     height: auto;
-}
-#filterDiv {
     border-radius: 8px;
 }
 
@@ -137,7 +131,6 @@ select, input[type="checkbox"] {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    
 }
 #membersCountFilter input[type="checkbox"] {
     margin-left: 8px;  /* Space between the checkbox and the label */
@@ -176,43 +169,12 @@ select, input[type="checkbox"] {
     transition: transform 0.5s ease;
 }
 
-/* Push Section */
-/* .push {
-    margin-top: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    width: 100%;
-    background-color: goldenrod;
-    z-index: 5;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    transition: transform 0.5s ease-in-out;
-    opacity: 0;
-    visibility: hidden;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    
-} */
-
-/* Active Push Section */
-/* .push.active {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-    visibility: visible;
-} */
-
-/* Bottom Section Animation (Container Moves Down) */
-.container.active {
-    transform: translateY(400px);
-}
-
 a {
     color: #000000;
 }
 
 #overlayer {
-    display: none;               /* Hidden by default */
+    display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%;
@@ -223,16 +185,12 @@ a {
 
 /* Popup box */
 .popup {
-    display: none;               /* Hidden by default */
+    display: none;
     position: fixed;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    /* background: white; */
-    /* padding: 20px; */
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     z-index: 1001;
-    /* width: 350px; */
-    /* height: ; */
     text-align: center;
 }

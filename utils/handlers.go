@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -26,13 +25,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("template/Home.html")
 	if err != nil {
 		ShowError(w, "500 Internal sever error - error parsing html template", 500)
-		fmt.Println(err)
 		return
 	}
-	data1 := artists
-	//fmt.Println(data1)
-
-	tmpl.Execute(w, data1)
+	tmpl.Execute(w, artists)
 }
 
 func HandlerCard(w http.ResponseWriter, r *http.Request) {
@@ -44,19 +39,13 @@ func HandlerCard(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("template/Artist.html")
 	if err != nil {
 		ShowError(w, "500 Internal sever error - error parsing html template", 500)
-		fmt.Println(err)
 		return
 	}
 
-	idString := r.FormValue("id")
-	id, err := strconv.Atoi(idString)
-
-	if err != nil || id >= len(artists) {
+	id, err := strconv.Atoi(r.FormValue("id"))
+	if err != nil || id > len(artists) {
 		ShowError(w, "404 - Not Found", 404)
-		fmt.Println("error getting id")
 		return
 	}
-
-	data1 := artists[id-1]
-	tmpl.Execute(w, data1)
+	tmpl.Execute(w, artists[id-1])
 }

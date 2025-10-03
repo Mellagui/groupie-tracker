@@ -7,10 +7,8 @@ import (
 
 func ShowError(w http.ResponseWriter, message string, status int) {
 
-	// Set the HTTP status code
 	w.WriteHeader(status)
 
-	// Parse the error template
 	tmpl, err := template.ParseFiles("template/ErrPage.html")
 	if err != nil {
 		// If template parsing fails, fallback to a generic error response
@@ -22,7 +20,7 @@ func ShowError(w http.ResponseWriter, message string, status int) {
 		Status:  status,
 		Message: message,
 	}
-	// Execute the template with the error message
+
 	err = tmpl.Execute(w, httpError)
 	if err != nil {
 		// If template execution fails, respond with a generic error
